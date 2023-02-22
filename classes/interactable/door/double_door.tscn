@@ -12,19 +12,19 @@ script = ExtResource( 2 )
 sprite = NodePath("SpriteL")
 door_graphic = ExtResource( 1 )
 
-[node name="SpriteL" type="AnimatedSprite" parent="."]
+[node name="SpriteL" type="AnimatedSprite2D" parent="."]
 position = Vector2( 0, -32 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
 z_index = -1
-frames = ExtResource( 1 )
+sprite_frames = ExtResource( 1 )
 animation = "opening"
 centered = false
 
-[node name="SpriteR" type="AnimatedSprite" parent="."]
+[node name="SpriteR" type="AnimatedSprite2D" parent="."]
 position = Vector2( 0, -32 )
 z_index = -1
-frames = ExtResource( 1 )
+sprite_frames = ExtResource( 1 )
 animation = "opening"
 centered = false
 

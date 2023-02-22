@@ -44,8 +44,8 @@ enum n { # FLUDD enum
 	turbo,
 }
 
-onready var console = $Console
-onready var timer = $Timer
+@onready var console = $Console
+@onready var timer = $Timer
 
 var classic = false
 
@@ -63,7 +63,7 @@ var pause_menu = false
 var line_count: int = 0
 var disable_limits = false
 var touch_control = false
-var ld_buffer = PoolByteArray([])
+var ld_buffer = PackedByteArray([])
 var meta_paused = false
 var meta_pauses = {
 	"feedback":false,
@@ -115,9 +115,9 @@ func _process(_delta):
 		AudioServer.set_bus_volume_db(music, AudioServer.get_bus_volume_db(music) + 1)
 
 
-# Get a scaling factor based on the window dimensions
+# Get a scaling factor based checked the window dimensions
 func get_screen_scale(mode: int = 0, threshold: float = -1) -> int:
-	var scale_vec = OS.window_size / Singleton.DEFAULT_SIZE
+
 	var rounded = Vector2.ONE
 	if threshold == -1:
 		match mode:
@@ -168,14 +168,14 @@ func warp_to(path: String, player: PlayerCharacter, position: Vector2 = Vector2.
 	# Reset speedrun timer if warping to the start of the game.
 	if path == SpeedrunTimer.RESET_SCENE_PATH:
 		timer.running = true
-		timer.frames = 0
+		timer.sprite_frames = 0
 		timer.split_frames = 0
 	# Either way, mark a new split.
 	timer.split_timer()
 	
 	# Do the actual warp.
 	# warning-ignore:RETURN_VALUE_DISCARDED
-	get_tree().call_deferred("change_scene", path)
+	get_tree().call_deferred("change_scene_to_file", path)
 
 
 # Sets a certain pause label - when all pause labels are false, gameplay takes place
@@ -195,7 +195,9 @@ func get_input_map_json_saved():
 
 
 func load_input_map(input_json):
-	var load_dict = parse_json(input_json)
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(input_json)
+	var load_dict = test_json_conv.get_data()
 	for key in load_dict:
 		InputMap.action_erase_events(key)
 		for action in load_dict[key]:
@@ -221,7 +223,7 @@ func get_input_map_json_current():
 	var save_dict = {}
 	for key in InputMap.get_actions():
 		if WHITELISTED_ACTIONS.has(key):
-			for action in InputMap.get_action_list(key):
+			for action in InputMap.action_get_events(key):
 				if !save_dict.has(key):
 					save_dict[key] = []
 				var key_entry = save_dict[key]
@@ -232,7 +234,7 @@ func get_input_map_json_current():
 						key_entry.append("b:%d" % action.button_index)
 					"InputEventJoypadMotion":
 						key_entry.append("a:%d;%d" % [action.axis, action.axis_value])
-	return to_json(save_dict)
+	return JSON.new().stringify(save_dict)
 
 
 func save_input_map(input_json):

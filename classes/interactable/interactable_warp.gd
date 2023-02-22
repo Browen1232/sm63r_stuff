@@ -13,12 +13,12 @@ extends Interactable
 #		player gradually drifts to the center, etc.
 # - _update_animation(_frame, _player):
 #		updates the enter animation for the given frame.
-#		This function does run on the final frame of the animation. In this case,
+#		This function does run checked the final frame of the animation. In this case,
 #		_frame will be equal to _animation_length(). This function will run
 #		before _end_animation() does.
 # - _end_animation(_player):
 #		at the end of the animation, resets any state that the animation set.
-#		This function runs after _update_animation() on the animation's final
+#		This function runs after _update_animation() checked the animation's final
 #		frame, EXCEPT if the warp is to a different scene.
 
 # Functions which child classes MAY implement:
@@ -30,7 +30,7 @@ extends Interactable
 #		The default behavior is to begin a scene change via WindowWarp, which
 #		produces a star iris transition.
 #		Please note that if the particular warp is set to move to a different scene,
-#		the exit transition will begin TRANSITION_SPEED_IN frames before the end of
+#		the exit transition will begin TRANSITION_SPEED_IN sprite_frames before the end of
 #		the animation.
 # -	_exit_pos_offset() -> Vector2:
 #		shifts the destination position by some amount.
@@ -39,9 +39,9 @@ extends Interactable
 const TRANSITION_SPEED_IN = 25
 const TRANSITION_SPEED_OUT = 15
 
-export var target_pos = Vector2.ZERO
-export var move_to_scene = false
-export var scene_path : String
+@export var target_pos = Vector2.ZERO
+@export var move_to_scene = false
+@export var scene_path : String
 
 var player = null # This holds a reference to player object during the animation
 var anim_timer = -1 # This goes down by one every frame of the animation
@@ -73,13 +73,13 @@ func _interact_with(body):
 
 
 func _physics_override():
-	._physics_override()
+	super._physics_override()
 	
 	# Run frame-by-frame animation logic.
 	if anim_timer > -1:
 		# Step the animation one frame forward.
 		# Pass it an inverted timer so people inheriting this class can work
-		# with frames-elapsed instead of frames-left.
+		# with sprite_frames-elapsed instead of sprite_frames-left.
 		_update_animation(_animation_length() - anim_timer, player)
 		
 		# Begin scene-change transition if the animation is ready
@@ -113,7 +113,7 @@ func _exit_pos_offset() -> Vector2:
 
 # Checks if player is in a state where they can interact
 func _state_check(body) -> bool:
-	return !body.locked and ._state_check(body) and body.is_on_floor()
+	return !body.locked and super._state_check(body) and body.is_on_floor()
 
 
 # Checks if the trigger button was pressed
@@ -138,7 +138,7 @@ func _end_animation(_player):
 	pass
 
 
-# Begins the exit transition. Called TRANSITION_SPEED_IN frames BEFORE the animation ends!
+# Begins the exit transition. Called TRANSITION_SPEED_IN sprite_frames BEFORE the animation ends!
 func _begin_scene_change(dst_pos: Vector2, dst_scene: String):
 	# Default warp transition is a star iris
 	var sweep_effect = $"/root/Singleton/WindowWarp"

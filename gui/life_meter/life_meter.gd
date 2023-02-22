@@ -4,12 +4,12 @@ const start_pos = -35
 const end_pos = 42
 var end_adjust = end_pos
 
-onready var player = $"/root/Main/Player"
-onready var filler = $MeterBase/Filler
-onready var coin_meter = $MeterBase/Filler/CoinMeter
-onready var coin_ring = $MeterBase/Filler/CoinMeter/CoinRing
-onready var death_cover = $"/root/Singleton/DeathManager/DeathCover"
-onready var save_count = player.hp # For when variable gets changed
+@onready var player = $"/root/Main/Player"
+@onready var filler = $MeterBase/Filler
+@onready var coin_meter = $MeterBase/Filler/CoinMeter
+@onready var coin_ring = $MeterBase/Filler/CoinMeter/CoinRing
+@onready var death_cover = $"/root/Singleton/DeathManager/DeathCover"
+@onready var save_count = player.hp # For when variable gets changed
 var act = false # For when life meter sprite can appear if true
 var rechange_timer = 0
 var rechange_trigger = false # So it can trigger the rechange_timer increment
@@ -22,12 +22,12 @@ func _ready():
 	coin_save = player.coins_toward_health
 	modulate.v = 1 - death_cover.color.a
 	progress = Singleton.meter_progress
-	margin_top = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * Singleton.get_screen_scale()
+	offset_top = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * Singleton.get_screen_scale()
 	filler.frame = player.hp
 
 
 func _process(delta):
-	# Health meter is on a layer above the death fade effect,
+	# Health meter is checked a layer above the death fade effect,
 	# but it needs to fade out with the rest of the world to obscure the
 	# health resetting.
 	# Modulating the meter's brightness (value) does this flawlessly.
@@ -45,7 +45,7 @@ func _process(delta):
 		if save_count != player.hp: # If it changed
 			save_count = player.hp # For the conditional
 			act = true # Start life meter moving onto the screen
-			# These are required for when the life meter gets affected while still showing up, will "last" longer on screen
+			# These are required for when the life meter gets affected while still showing up, will "last" longer checked screen
 			rechange_moving = false # In case it's going up
 		
 		if act:
@@ -71,7 +71,7 @@ func _process(delta):
 				else:
 					rechange_moving = false # And now everything is back to place
 			elif !act and !rechange_trigger and player.hp >= 8:
-				margin_top = start_pos * gui_scale
+				offset_top = start_pos * gui_scale
 		else:
 			rechange_moving = false
 
@@ -92,5 +92,5 @@ func _process(delta):
 			coin_meter.animation = "charge"
 		
 		coin_ring.visible = (coin_meter.animation == "flash" and coin_meter.frame == 0)
-	margin_top = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos))
+	offset_top = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos))
 	Singleton.meter_progress = progress

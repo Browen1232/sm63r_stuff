@@ -1,6 +1,6 @@
 extends Area2D
 
-onready var collision = $CollisionShape2D
+@onready var collision = $CollisionShape2D
 var bodies = []
 
 func snap_bodies():

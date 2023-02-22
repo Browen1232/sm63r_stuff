@@ -2,10 +2,10 @@ extends TouchScreenButton
 
 const ID_LIST = "sudlrzxcp"
 
-export var id = ""
-export var actions = PoolStringArray([])
+@export var id = ""
+@export var actions = PackedStringArray([])
 
-onready var parent = get_parent().get_parent()
+@onready var parent = get_parent().get_parent()
 
 func _ready():
 	_setup_textures(id)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://classes/solid/log/log.png" type="Texture" id=1]
+[ext_resource path="res://classes/solid/log/log.png" type="Texture2D" id=1]
 [ext_resource path="res://shaders/aa.tres" type="Material" id=2]
 [ext_resource path="res://classes/solid/log/log.gd" type="Script" id=3]
 
@@ -12,7 +12,7 @@ z_index = -1
 collision_mask = 0
 script = ExtResource( 3 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 material = ExtResource( 2 )
 texture = ExtResource( 1 )
 

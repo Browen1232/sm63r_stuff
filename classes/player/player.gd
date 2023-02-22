@@ -1,5 +1,5 @@
 class_name PlayerCharacter
-extends KinematicBody2D
+extends CharacterBody2D
 
 const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
 
@@ -146,30 +146,30 @@ var fludd_power = 100
 
 var dead = false
 
-onready var base_modifier = BaseModifier.new()
-onready var voice = $Voice
-onready var step = $Step
-onready var spin_sfx = $SpinSFX
-onready var thud = $Thud
-onready var pound_spin_sfx = $PoundSpin
-onready var sprite = $Character
-onready var fludd_sprite = $Character/Fludd
-onready var camera = $"/root/Main/Player/Camera"
-onready var step_check = $StepCheck
-onready var pound_check_l = $PoundCheckL
-onready var pound_check_r = $PoundCheckR
-onready var angle_cast = $DiveAngling
-onready var hitbox =  $Hitbox
-onready var water_check = $WaterCheck
-onready var spray_particles: Particles2D = $"SprayViewport/SprayParticles"
-onready var nozzle_fx = $SprayPlume
-onready var spray_viewport = $SprayViewport
-onready var switch_sfx = $SwitchSFX
-onready var hover_sfx = $HoverSFX
-onready var hover_loop_sfx = $HoverLoopSFX
-onready var dust = $Dust
-onready var ground_failsafe_check: Area2D = $GroundFailsafe
-onready var feet_area: Area2D = $Feet
+@onready var base_modifier = BaseModifier.new()
+@onready var voice = $Voice
+@onready var step = $Step
+@onready var spin_sfx = $SpinSFX
+@onready var thud = $Thud
+@onready var pound_spin_sfx = $PoundSpin
+@onready var sprite = $Character
+@onready var fludd_sprite = $Character/Fludd
+@onready var camera = $"/root/Main/Player/Camera3D"
+@onready var step_check = $StepCheck
+@onready var pound_check_l = $PoundCheckL
+@onready var pound_check_r = $PoundCheckR
+@onready var angle_cast = $DiveAngling
+@onready var hitbox =  $Hitbox
+@onready var water_check = $WaterCheck
+@onready var spray_particles: GPUParticles2D = $"SprayViewport/SprayParticles"
+@onready var nozzle_fx = $SprayPlume
+@onready var spray_viewport = $SprayViewport
+@onready var switch_sfx = $SwitchSFX
+@onready var hover_sfx = $HoverSFX
+@onready var hover_loop_sfx = $HoverLoopSFX
+@onready var dust = $Dust
+@onready var ground_failsafe_check: Area2D = $GroundFailsafe
+@onready var feet_area: Area2D = $Feet
 
 
 
@@ -530,7 +530,7 @@ func wall_stop() -> void:
 	if is_on_wall():
 		if int(vel.x) != 0:
 			if int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")) != sign(int(vel.x)):
-				vel.x = -vel.x * WALL_BOUNCE # Bounce off a wall when not intentionally pushing into it
+				vel.x = -vel.x * WALL_BOUNCE # Bounce unchecked a wall when not intentionally pushing into it
 			else:
 				vel.x = 0 # Cancel X velocity when intentionally pushing into a wall
 	if is_on_ceiling():
@@ -543,13 +543,13 @@ const POUND_SPIN_DURATION = POUND_TIME_TO_FALL - _POUND_HANG_TIME # Time the spi
 const POUND_SPIN_SMOOTHING = 0.5 # Range from 0 to 1
 const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
 const POUND_SPIN_RISE_TIME = 15
-const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
+const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite2D origin is set to this during pound spin
 
 var pound_spin_frames: int = 0
 func action_pound() -> void:
 	if state == S.POUND and pound_state == Pound.SPIN:
 		pound_spin_frames += 1
-		# Spin frames normalized from 0-1.
+		# Spin sprite_frames normalized from 0-1.
 		# Min makes it stop after one full spin.
 		var pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
 		# Blend between 0% and 100% smoothed animation.
@@ -565,7 +565,7 @@ func action_pound() -> void:
 		
 		# Set rotation according to position in the animation.
 		sprite.rotation = TAU * pound_spin_factor
-		# Adjust rotation depending on our facing direction.
+		# Adjust rotation depending checked our facing direction.
 		sprite.rotation *= -1 if sprite.flip_h else 1
 		
 		# Begin windup state once the spin ends
@@ -950,7 +950,7 @@ func coyote_behaviour() -> void:
 	if double_jump_frames <= 0:
 		double_jump_state = 0
 	
-	if grounded: # specifically apply to when actually on the ground, not coyote time
+	if grounded: # specifically apply to when actually checked the ground, not coyote time
 		manage_pound_recover()
 		vel.y = 0
 		if swimming:
@@ -1025,13 +1025,13 @@ func player_fall() -> void:
 func ground_friction() -> void:
 	if state == S.DIVE:
 		if double_jump_frames >= DOUBLE_JUMP_TIME - 1:
-			vel.x = resist(vel.x, 0.2, 1.02) # Double friction on landing
+			vel.x = resist(vel.x, 0.2, 1.02) # Double friction checked landing
 		vel.x = resist(vel.x, 0.2, 1.02) # Floor friction
 		if !dive_resetting:
 			manage_dive_angle()
 	else:
 		if double_jump_frames >= DOUBLE_JUMP_TIME - 1:
-			vel.x = resist(vel.x, 0.3, 1.15) # Double friction on landing
+			vel.x = resist(vel.x, 0.3, 1.15) # Double friction checked landing
 		vel.x = resist(vel.x, 0.3, 1.15) # Floor friction
 
 
@@ -1129,10 +1129,10 @@ func manage_pound_recover() -> void:
 			switch_anim("flip")
 			
 			# Dispatch star effect
-			var fx = ground_pound_effect.instance()
+			var fx = ground_pound_effect.instantiate()
 			get_parent().add_child(fx)
 			fx.global_position = sprite.global_position + Vector2.DOWN * 11
-			fx.find_node("StarsAnim").play("GroundPound")
+			fx.find_child("StarsAnim").play("GroundPound")
 			
 			# Dispatch pound thud
 			# Begin by checking center for a collider
@@ -1154,7 +1154,7 @@ func manage_pound_recover() -> void:
 			# Nullify all camera shake.
 			camera.offset = Vector2.ZERO
 		else: # just handle camera shake
-			# Shake goes up on even frames, down on odd frames.
+			# Shake goes up checked even sprite_frames, down checked odd sprite_frames.
 			var shake_sign = 1 if pound_land_frames % 2 else -1
 			# Shake is less strong every frame that passes.
 			# (Another branch takes the land_frames == 0 case--
@@ -1175,7 +1175,11 @@ func player_move() -> void:
 	# store the current position in advance
 	var save_pos = position
 	# warning-ignore:return_value_discarded
-	move_and_slide_with_snap(vel * 60.0, snap, Vector2(0, -1), true)
+	set_velocity(vel * 60.0)
+	# TODOConverter40 looks that snap in Godot 4.0 is float, not vector like in Godot 3 - previous value `snap`
+	set_up_direction(Vector2(0, -1))
+	set_floor_stop_on_slope_enabled(true)
+	move_and_slide()
 	
 	# check how far that moved the player
 	var slide_vec = position-save_pos
@@ -1191,7 +1195,13 @@ func player_move() -> void:
 	):
 		position = save_pos
 		# warning-ignore:return_value_discarded
-		move_and_slide_with_snap(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0), snap, Vector2(0, -1), true, 4, deg2rad(47))
+		set_velocity(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0))
+		# TODOConverter40 looks that snap in Godot 4.0 is float, not vector like in Godot 3 - previous value `snap`
+		set_up_direction(Vector2(0, -1))
+		set_floor_stop_on_slope_enabled(true)
+		set_max_slides(4)
+		set_floor_max_angle(deg_to_rad(47))
+		move_and_slide()
 
 
 func get_snap() -> Vector2:
@@ -1296,8 +1306,8 @@ const WATER_VRB_BUS = 1
 const WATER_LPF_BUS = 2
 const FADE_TIME = 10
 var fade_timer = 0
-onready var lowpass: AudioEffectFilter = AudioServer.get_bus_effect(WATER_LPF_BUS, 0)
-onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(WATER_VRB_BUS, 0)
+@onready var lowpass: AudioEffectFilter = AudioServer.get_bus_effect(WATER_LPF_BUS, 0)
+@onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(WATER_VRB_BUS, 0)
 func manage_water_audio(delta):
 	if swimming:
 		# Fade in water fx
@@ -1450,13 +1460,13 @@ func switch_state(new_state):
 		S.POUND:
 			hitbox.position = STAND_BOX_POS
 			hitbox.shape.extents = STAND_BOX_EXTENTS
-			camera.smoothing_speed = 10
+			camera.position_smoothing_speed = 10
 		_:
 			hitbox.position = STAND_BOX_POS
 			hitbox.shape.extents = STAND_BOX_EXTENTS
-			camera.smoothing_speed = 5
+			camera.position_smoothing_speed = 5
 			clear_rotation_origin()
-	# End spin SFX on any state change
+	# End spin SFX checked any state change
 	spin_sfx.stop()
 
 
@@ -1472,7 +1482,7 @@ func switch_anim(new_anim):
 	else:
 		fludd_sprite.visible = true
 		fludd_anim = new_anim + "_fludd"
-		if sprite.frames.has_animation(fludd_anim): # ensures the belt animation exists
+		if sprite.sprite_frames.has_animation(fludd_anim): # ensures the belt animation exists
 			anim = fludd_anim
 		else:
 			anim = new_anim
@@ -1521,7 +1531,9 @@ func recieve_health(amount):
 const DIVE_CORRECTION = 7
 func dive_correct(factor): # Correct the player's origin position when diving
 	# warning-ignore:return_value_discarded
-	move_and_slide(Vector2(0, DIVE_CORRECTION * factor * 60), Vector2(0, -1))
+	set_velocity(Vector2(0, DIVE_CORRECTION * factor * 60))
+	set_up_direction(Vector2(0, -1))
+	move_and_slide()
 	if factor == -1:
 		dust.position.y = 11.5
 		ground_failsafe_check.position.y = 17

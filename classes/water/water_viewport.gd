@@ -1,18 +1,18 @@
-tool
-extends Sprite
+@tool
+extends Sprite2D
 
 const WATER_VIEWPORT_MATERIAL = preload("res://classes/water/water_viewport.tres")
 
-onready var viewport: Viewport = $Viewport
-onready var water: Polygon2D = $Viewport/WaterPolygon
-onready var detection_area: Area2D = $DetectionArea
-onready var collision: CollisionPolygon2D = $DetectionArea/Collision
+@onready var viewport: SubViewport = $SubViewport
+@onready var water: Polygon2D = $SubViewport/WaterPolygon
+@onready var detection_area: Area2D = $DetectionArea
+@onready var collision: CollisionPolygon2D = $DetectionArea/Collision
 
-export var polygon: PoolVector2Array = PoolVector2Array()
-export var outline_texture: Texture = load("res://classes/water/water_outline_anim.png")
-export var water_texture_size: Vector2 = Vector2(64, 64)
-export var outline_texture_size: Vector2 = Vector2(32, 12)
-export var water_color: Color = Color(0, 0.7, 1, 0.8)
+@export var polygon: PackedVector2Array = PackedVector2Array()
+@export var outline_texture: Texture2D = load("res://classes/water/water_outline_anim.png")
+@export var water_texture_size: Vector2 = Vector2(64, 64)
+@export var outline_texture_size: Vector2 = Vector2(32, 12)
+@export var water_color: Color = Color(0, 0.7, 1, 0.8)
 #export var texture_color_impact: float = 0.2;
 #export var animation_swing_range: float = 32;
 #export var animation_speed: float = 1;
@@ -37,7 +37,7 @@ func refresh():
 	water.position += size_diff / 2
 	water.polygon = polygon
 	# Now set the collision polygon
-	collision.polygon = PoolVector2Array([
+	collision.polygon = PackedVector2Array([
 		Vector2(0, 0), Vector2(size_extends.x, 0),
 		size_extends, Vector2(0, size_extends.y)
 	])
@@ -50,10 +50,10 @@ func refresh():
 	
 	# Now give the shader our viewport texture
 	var root_mat = WATER_VIEWPORT_MATERIAL.duplicate()
-	root_mat.set_shader_param("viewport_texture", viewport.get_texture())
-	root_mat.set_shader_param("base_water_color", water_color)
-	root_mat.set_shader_param("outline_texture", outline_texture)
-	root_mat.set_shader_param("outline_texture_size", outline_texture_size)
+	root_mat.set_shader_parameter("viewport_texture", viewport.get_texture())
+	root_mat.set_shader_parameter("base_water_color", water_color)
+	root_mat.set_shader_parameter("outline_texture", outline_texture)
+	root_mat.set_shader_parameter("outline_texture_size", outline_texture_size)
 	material = root_mat
 	
 	# Shader copy time
@@ -65,18 +65,18 @@ func refresh():
 	
 	# Set the water shaders
 #	var mat = water_material.duplicate()
-#	mat.set_shader_param("base_water_color", water_color)
-#	mat.set_shader_param("texture_repeat", (size_extends / water_texture_size).y)
-#	mat.set_shader_param("water_xy_ratio", Vector2(size_extends.x / size_extends.y, 1))
-#	mat.set_shader_param("normal_map_mult", texture_color_impact)
-#	mat.set_shader_param("animation_swing_range_px", animation_swing_range)
-#	mat.set_shader_param("animation_speed", animation_speed)
+#	mat.set_shader_parameter("base_water_color", water_color)
+#	mat.set_shader_parameter("texture_repeat", (size_extends / water_texture_size).y)
+#	mat.set_shader_parameter("water_xy_ratio", Vector2(size_extends.x / size_extends.y, 1))
+#	mat.set_shader_parameter("normal_map_mult", texture_color_impact)
+#	mat.set_shader_parameter("animation_swing_range_px", animation_swing_range)
+#	mat.set_shader_parameter("animation_speed", animation_speed)
 #	water.material = mat
 
 
 func _draw():
 	if Engine.editor_hint:
-		var colors = PoolColorArray()
+		var colors = PackedColorArray()
 		for poly in polygon:
 			colors.append(Color(0, 0.7, 1))#water_color)
 		draw_polygon(polygon, colors)
@@ -93,7 +93,7 @@ func _process(dt):
 	if timer >= next_frame:
 		next_frame = timer + 0.2
 		current_frame = (current_frame + 1) % 4
-		material.set_shader_param("outline_anim_phase", current_frame)
+		material.set_shader_parameter("outline_anim_phase", current_frame)
 
 func _ready():
 	if !Engine.editor_hint:

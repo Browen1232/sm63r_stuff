@@ -1,11 +1,11 @@
-tool
-extends AnimatedSprite
+@tool
+extends AnimatedSprite2D
 
-onready var hurtbox = $Damage
-onready var top_collision = $TopCollision
+@onready var hurtbox = $Damage
+@onready var top_collision = $TopCollision
 
-var koopa = preload("koopa.tscn").instance()
-var shell = preload("koopa_shell.tscn").instance()
+var koopa = preload("koopa.tscn").instantiate()
+var shell = preload("koopa_shell.tscn").instantiate()
 
 const color_presets = [
 	[ # green
@@ -20,14 +20,14 @@ const color_presets = [
 	],
 ]
 
-export var disabled = false setget set_disabled
-export var mirror = false
-export(int, "green", "red") var color = 0 setget set_color
+@export var disabled = false : set = set_disabled
+@export var mirror = false
+@export var color = 0 setget set_color # (int, "green", "red")
 
 
 func set_color(new_color):
 	for i in range(3):
-		material.set_shader_param("color" + str(i), color_presets[new_color][i])
+		material.set_shader_parameter("color" + str(i), color_presets[new_color][i])
 	color = new_color
 
 

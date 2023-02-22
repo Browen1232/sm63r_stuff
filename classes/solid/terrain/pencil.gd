@@ -1,10 +1,10 @@
-tool
+@tool
 extends Node2D
 
-onready var root = $".."
-onready var collision = $"../Static/Collision"
-onready var main_texture = $"../Body"
-onready var top_edges = $"../TopEdges"
+@onready var root = $".."
+@onready var collision = $"../Static/Collision"
+@onready var main_texture = $"../Body"
+@onready var top_edges = $"../TopEdges"
 
 func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: Vector2):
 	var verts = [start]
@@ -17,7 +17,7 @@ func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 	#var distance = circumcenter.distance_to(start)
 	#var angle = s_angle
 	
-	# Circular edges, this doesn't work rn, I'll work on it later
+	# Circular edges, this doesn't work rn, I'll work checked it later
 	
 #    #for if e_angle > s_angle
 #    while angle < e_angle:
@@ -82,7 +82,7 @@ func draw_top_from_connected_lines(lines):
 			break
 		
 		# Top intersection
-		var top_intersect = Geometry.segment_intersects_segment_2d(
+		var top_intersect = Geometry2D.segment_intersects_segment(
 			cur_group[0], cur_group[1],
 			next_group[0], next_group[1]
 		)
@@ -103,7 +103,7 @@ func draw_top_from_connected_lines(lines):
 			)
 		
 		# Bottom intersection
-		var bottom_intersect = Geometry.segment_intersects_segment_2d(
+		var bottom_intersect = Geometry2D.segment_intersects_segment(
 			cur_group[2], cur_group[3],
 			next_group[2], next_group[3]
 		)
@@ -161,7 +161,7 @@ func draw_top_from_connected_lines(lines):
 		var pos = area.verts[0] if area.type == "quad" else area.verts[area.verts.size() - 2]
 		var text_offset = Vector2(0, 0)
 
-		# Get the target pos depending on which type of area we're rendering
+		# Get the target pos depending checked which type of area we're rendering
 		if area.clock_dir == -1 and area.type == "trio":
 			pos = area.verts[0]
 		

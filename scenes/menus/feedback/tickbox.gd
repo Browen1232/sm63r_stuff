@@ -1,6 +1,6 @@
 extends Control
 
-onready var sprite = $Sprite
+@onready var sprite = $Sprite2D
 var pressed = false
 
 

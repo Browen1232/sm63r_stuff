@@ -3,7 +3,7 @@ extends Node
 
 var player_dead = false
 
-onready var cover = $DeathCover
+@onready var cover = $DeathCover
 
 
 func _process(delta):
@@ -16,10 +16,10 @@ func _process(delta):
 		# Once the screen is fully black, do death logic.
 		if cover.color.a >= 1:
 			# Warp to the current scene.
-			# TODO: this function creates a split on the speedrun timer. Might not
+			# TODO: this function creates a split checked the speedrun timer. Might not
 			# be appropriate for death!
 			# warning-ignore:RETURN_VALUE_DISCARDED
-			Singleton.warp_to(get_tree().get_current_scene().get_filename(), null)
+			Singleton.warp_to(get_tree().get_current_scene().get_scene_file_path(), null)
 			
 			player_dead = false
 	else:

@@ -5,21 +5,21 @@
 [ext_resource path="res://gui/water_meter/water_meter.tscn" type="PackedScene" id=11]
 [ext_resource path="res://gui/life_meter/life_meter.tscn" type="PackedScene" id=13]
 [ext_resource path="res://gui/hud/hud.gd" type="Script" id=14]
-[ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=26]
-[ext_resource path="res://shaders/flash.shader" type="Shader" id=28]
-[ext_resource path="res://gui/hud/hud_red_coin.png" type="Texture" id=33]
-[ext_resource path="res://gui/hud/hud_coin.png" type="Texture" id=50]
-[ext_resource path="res://gui/hud/hud_shine_coin.png" type="Texture" id=53]
-[ext_resource path="res://gui/hud/hud_x.png" type="Texture" id=63]
-[ext_resource path="res://gui/hud/hud_silver_shine.png" type="Texture" id=71]
-[ext_resource path="res://gui/hud/hud_shine.png" type="Texture" id=79]
+[ext_resource path="res://fonts/red/gui_red.fnt" type="FontFile" id=26]
+[ext_resource path="res://shaders/flash.gdshader" type="Shader" id=28]
+[ext_resource path="res://gui/hud/hud_red_coin.png" type="Texture2D" id=33]
+[ext_resource path="res://gui/hud/hud_coin.png" type="Texture2D" id=50]
+[ext_resource path="res://gui/hud/hud_shine_coin.png" type="Texture2D" id=53]
+[ext_resource path="res://gui/hud/hud_x.png" type="Texture2D" id=63]
+[ext_resource path="res://gui/hud/hud_silver_shine.png" type="Texture2D" id=71]
+[ext_resource path="res://gui/hud/hud_shine.png" type="Texture2D" id=79]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 28 )
 shader_param/flash_factor = 0.0
 
 [node name="HUD" type="CanvasLayer"]
-follow_viewport_enable = true
+follow_viewport_enabled = true
 __meta__ = {
 "_edit_horizontal_guides_": [  ],
 "_edit_vertical_guides_": [  ]
@@ -46,81 +46,81 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="StatsTL" type="VBoxContainer" parent="HUDControl/Stats"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 8.0
-margin_bottom = 50.0
-rect_pivot_offset = Vector2( -8, -8 )
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 8.0
+offset_bottom = 50.0
+pivot_offset = Vector2( -8, -8 )
 mouse_filter = 2
 custom_constants/separation = 4
 
 [node name="CoinRow" type="Control" parent="HUDControl/Stats/StatsTL"]
-margin_bottom = 17.0
-rect_min_size = Vector2( 0, 17 )
+offset_bottom = 17.0
+custom_minimum_size = Vector2( 0, 17 )
 
-[node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTL/CoinRow"]
+[node name="Sprite2D" type="Sprite2D" parent="HUDControl/Stats/StatsTL/CoinRow"]
 texture = ExtResource( 50 )
 centered = false
 
-[node name="X" type="Sprite" parent="HUDControl/Stats/StatsTL/CoinRow"]
+[node name="X" type="Sprite2D" parent="HUDControl/Stats/StatsTL/CoinRow"]
 position = Vector2( 19, 4 )
 texture = ExtResource( 63 )
 centered = false
 
 [node name="Count" type="Label" parent="HUDControl/Stats/StatsTL/CoinRow"]
 material = SubResource( 1 )
-margin_left = 32.0
-margin_top = 1.0
-margin_right = 72.0
-margin_bottom = 17.0
+offset_left = 32.0
+offset_top = 1.0
+offset_right = 72.0
+offset_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="RedCoinRow" type="Control" parent="HUDControl/Stats/StatsTL"]
-margin_top = 21.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 0, 17 )
+offset_top = 21.0
+offset_bottom = 38.0
+custom_minimum_size = Vector2( 0, 17 )
 
-[node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTL/RedCoinRow"]
+[node name="Sprite2D" type="Sprite2D" parent="HUDControl/Stats/StatsTL/RedCoinRow"]
 texture = ExtResource( 33 )
 centered = false
 
-[node name="X" type="Sprite" parent="HUDControl/Stats/StatsTL/RedCoinRow"]
+[node name="X" type="Sprite2D" parent="HUDControl/Stats/StatsTL/RedCoinRow"]
 position = Vector2( 19, 4 )
 texture = ExtResource( 63 )
 centered = false
 
 [node name="Count" type="Label" parent="HUDControl/Stats/StatsTL/RedCoinRow"]
-margin_left = 32.0
-margin_top = 1.0
-margin_right = 80.0
-margin_bottom = 17.0
+offset_left = 32.0
+offset_top = 1.0
+offset_right = 80.0
+offset_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SilverShineRow" type="Control" parent="HUDControl/Stats/StatsTL"]
-margin_top = 42.0
-margin_bottom = 59.0
-rect_min_size = Vector2( 0, 17 )
+offset_top = 42.0
+offset_bottom = 59.0
+custom_minimum_size = Vector2( 0, 17 )
 
-[node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTL/SilverShineRow"]
+[node name="Sprite2D" type="Sprite2D" parent="HUDControl/Stats/StatsTL/SilverShineRow"]
 texture = ExtResource( 71 )
 centered = false
 
-[node name="X" type="Sprite" parent="HUDControl/Stats/StatsTL/SilverShineRow"]
+[node name="X" type="Sprite2D" parent="HUDControl/Stats/StatsTL/SilverShineRow"]
 position = Vector2( 19, 4 )
 texture = ExtResource( 63 )
 centered = false
 
 [node name="Count" type="Label" parent="HUDControl/Stats/StatsTL/SilverShineRow"]
-margin_left = 32.0
-margin_top = 1.0
-margin_right = 112.0
-margin_bottom = 17.0
+offset_left = 32.0
+offset_top = 1.0
+offset_right = 112.0
+offset_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -129,57 +129,57 @@ __meta__ = {
 [node name="StatsTR" type="VBoxContainer" parent="HUDControl/Stats"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -8.0
-margin_top = 8.0
-margin_bottom = 29.0
-rect_pivot_offset = Vector2( 8, -8 )
+offset_left = -8.0
+offset_top = 8.0
+offset_bottom = 29.0
+pivot_offset = Vector2( 8, -8 )
 mouse_filter = 2
 custom_constants/separation = 4
 
 [node name="ShineRow" type="Control" parent="HUDControl/Stats/StatsTR"]
-margin_right = 8.0
-margin_bottom = 17.0
-rect_min_size = Vector2( 0, 17 )
+offset_right = 8.0
+offset_bottom = 17.0
+custom_minimum_size = Vector2( 0, 17 )
 
-[node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineRow"]
+[node name="Sprite2D" type="Sprite2D" parent="HUDControl/Stats/StatsTR/ShineRow"]
 position = Vector2( -40.5, 7.5 )
 texture = ExtResource( 79 )
 
-[node name="X" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineRow"]
+[node name="X" type="Sprite2D" parent="HUDControl/Stats/StatsTR/ShineRow"]
 position = Vector2( -29, 4 )
 texture = ExtResource( 63 )
 centered = false
 
 [node name="Count" type="Label" parent="HUDControl/Stats/StatsTR/ShineRow"]
-margin_left = -15.0
-margin_top = 1.0
-margin_right = 65.0
-margin_bottom = 17.0
+offset_left = -15.0
+offset_top = 1.0
+offset_right = 65.0
+offset_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ShineCoinRow" type="Control" parent="HUDControl/Stats/StatsTR"]
-margin_top = 21.0
-margin_right = 8.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 0, 17 )
+offset_top = 21.0
+offset_right = 8.0
+offset_bottom = 38.0
+custom_minimum_size = Vector2( 0, 17 )
 
-[node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineCoinRow"]
+[node name="Sprite2D" type="Sprite2D" parent="HUDControl/Stats/StatsTR/ShineCoinRow"]
 position = Vector2( -40, 9.5 )
 texture = ExtResource( 53 )
 
-[node name="X" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineCoinRow"]
+[node name="X" type="Sprite2D" parent="HUDControl/Stats/StatsTR/ShineCoinRow"]
 position = Vector2( -29, 4 )
 texture = ExtResource( 63 )
 centered = false
 
 [node name="Count" type="Label" parent="HUDControl/Stats/StatsTR/ShineCoinRow"]
-margin_left = -15.0
-margin_top = 1.0
-margin_right = 65.0
-margin_bottom = 17.0
+offset_left = -15.0
+offset_top = 1.0
+offset_right = 65.0
+offset_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
 __meta__ = {
 "_edit_use_anchors_": false

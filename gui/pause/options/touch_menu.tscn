@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=1]
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
-[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=3]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="FontFile" id=2]
+[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture2D" id=3]
 [ext_resource path="res://gui/dialog/nx_luigi_box.tres" type="StyleBox" id=4]
 [ext_resource path="res://gui/dialog/nx_box.tres" type="StyleBox" id=5]
 [ext_resource path="res://gui/pause/options/layout_select.gd" type="Script" id=6]
@@ -40,22 +40,22 @@ anchor_bottom = 1.0
 [node name="Margin" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -8.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 
 [node name="Label" type="Label" parent="Margin"]
-margin_right = 138.0
-margin_bottom = 15.0
+offset_right = 138.0
+offset_bottom = 15.0
 custom_fonts/font = ExtResource( 2 )
 text = "Touch control layout:"
 
 [node name="LayoutSelect" type="OptionButton" parent="Margin"]
 anchor_right = 1.0
-margin_top = 19.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 0, 32 )
+offset_top = 19.0
+offset_bottom = 51.0
+custom_minimum_size = Vector2( 0, 32 )
 mouse_default_cursor_shape = 2
 custom_fonts/font = ExtResource( 2 )
 custom_styles/hover = ExtResource( 1 )
@@ -66,27 +66,27 @@ script = ExtResource( 6 )
 
 [node name="SwapSides" type="Label" parent="Margin"]
 anchor_right = 1.0
-margin_top = 54.0
-margin_bottom = 69.0
+offset_top = 54.0
+offset_bottom = 69.0
 custom_fonts/font = ExtResource( 2 )
 text = "Switch sides:"
 
 [node name="Swap" type="TextureButton" parent="Margin/SwapSides"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -228.0
-margin_right = -208.0
-margin_bottom = 21.0
-rect_min_size = Vector2( 20, 21 )
-rect_scale = Vector2( 2, 2 )
+offset_left = -228.0
+offset_right = -208.0
+offset_bottom = 21.0
+custom_minimum_size = Vector2( 20, 21 )
+scale = Vector2( 2, 2 )
 texture_normal = SubResource( 5 )
 texture_pressed = SubResource( 6 )
 script = ExtResource( 8 )
 
 [node name="ChangeSize" type="Label" parent="Margin"]
 anchor_right = 1.0
-margin_top = 54.0
-margin_bottom = 69.0
+offset_top = 54.0
+offset_bottom = 69.0
 custom_fonts/font = ExtResource( 2 )
 text = "Change size:"
 align = 1
@@ -95,24 +95,24 @@ script = ExtResource( 7 )
 [node name="SizeUp" type="TextureButton" parent="Margin/ChangeSize"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -62.0
-margin_top = 20.0
-margin_right = -42.0
-margin_bottom = 41.0
-rect_min_size = Vector2( 20, 21 )
-rect_scale = Vector2( 3, 3 )
+offset_left = -62.0
+offset_top = 20.0
+offset_right = -42.0
+offset_bottom = 41.0
+custom_minimum_size = Vector2( 20, 21 )
+scale = Vector2( 3, 3 )
 texture_normal = SubResource( 1 )
 texture_pressed = SubResource( 2 )
 
 [node name="SizeDown" type="TextureButton" parent="Margin/ChangeSize"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 2.00003
-margin_top = 20.0
-margin_right = 22.0
-margin_bottom = 41.0
-rect_min_size = Vector2( 20, 21 )
-rect_scale = Vector2( 3, 3 )
+offset_left = 2.00003
+offset_top = 20.0
+offset_right = 22.0
+offset_bottom = 41.0
+custom_minimum_size = Vector2( 20, 21 )
+scale = Vector2( 3, 3 )
 texture_normal = SubResource( 3 )
 texture_pressed = SubResource( 4 )
 

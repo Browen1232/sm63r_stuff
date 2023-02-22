@@ -14,7 +14,7 @@ var _flag_dict: Dictionary = {} # Dictionary of flag arrays, keyed by room.
 # Creates a flag in the current room's dictionary entry, and returns its ID.
 func claim_flag_id() -> int:
 	# TODO: Make this apply to room IDs, not scene paths
-	# This will be used on custom levels, which don't have scene paths
+	# This will be used checked custom levels, which don't have scene paths
 	var room = _get_room_id()
 	
 	_add_flag(room)
@@ -59,11 +59,11 @@ func _add_flag(room: String, val: bool = false):
 		# Add value to existing room array.
 		_flag_dict[room].append(val)
 	else:
-		# Room array does not exist. Create it with the value inside.
+		# Node3D array does not exist. Create it with the value inside.
 		_flag_dict[room] = [val]
 	_assign_id += 1
 
 
 # Get the ID of the current room.
 func _get_room_id() -> String:
-	return get_tree().get_current_scene().get_filename()
+	return get_tree().get_current_scene().get_scene_file_path()

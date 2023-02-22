@@ -2,7 +2,7 @@
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/pickup/fludd_box/fludd_pickup.gd" type="Script" id=2]
-[ext_resource path="res://classes/pickup/fludd_box/pickup_rocket.png" type="Texture" id=3]
+[ext_resource path="res://classes/pickup/fludd_box/pickup_rocket.png" type="Texture2D" id=3]
 [ext_resource path="res://classes/pickup/fludd_box/fludd_entity.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=4]
@@ -11,7 +11,7 @@ extents = Vector2( 8, 7.5 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 12.5 )
 
-[node name="FluddPickupRocket" type="KinematicBody2D"]
+[node name="FluddPickupRocket" type="CharacterBody2D"]
 z_index = -1
 collision_layer = 0
 script = ExtResource( 4 )
@@ -28,7 +28,7 @@ script = ExtResource( 2 )
 parent_is_root = true
 nozzle_award = 2
 
-[node name="Sprite" type="Sprite" parent="Rocket"]
+[node name="Sprite2D" type="Sprite2D" parent="Rocket"]
 position = Vector2( 0, -5 )
 texture = ExtResource( 3 )
 script = ExtResource( 1 )

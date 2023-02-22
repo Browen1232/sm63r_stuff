@@ -2,19 +2,19 @@ extends Button
 
 const TEMPLATE_SCENE = preload("./template.tscn")
 const PLAYER_SCENE = preload("res://classes/player/player.tscn")
-const BG_SCENE = preload("res://scenes/levels/tutorial_1/bg/bg_t1.tscn")
+const BG_SCENE = preload("res://scenes/levels/tutorial_1/panel/bg_t1.tscn")
 
-onready var main = $"/root/Main"
-onready var save = $"/root/Main/UILayer/SaveDialog"
+@onready var main = $"/root/Main"
+@onready var save = $"/root/Main/UILayer/SaveDialog"
 
 
 func _on_Start_pressed():
 	var serializer = Serializer.new()
 	Singleton.ld_buffer = serializer.generate_level_binary($"/root/Main/Template/Items".get_children(), $"/root/Main/Template/Terrain".get_children(), main)
 	var template = $"/root/Main/Template"
-	var template_inst = TEMPLATE_SCENE.instance()
+	var template_inst = TEMPLATE_SCENE.instantiate()
 	for item in template.get_node("Items").get_children():
-		var item_inst = load(main.item_scenes[item.item_id]).instance()
+		var item_inst = load(main.item_scenes[item.item_id]).instantiate()
 		template_inst.add_child(item_inst)
 		apply_properties(item_inst, item)
 		
@@ -24,8 +24,8 @@ func _on_Start_pressed():
 		template_inst.add_child(item)
 		
 	scoop_children(main, template_inst)
-	main.add_child(PLAYER_SCENE.instance())
-	main.add_child(BG_SCENE.instance())
+	main.add_child(PLAYER_SCENE.instantiate())
+	main.add_child(BG_SCENE.instantiate())
 	main.in_level = true
 
 
@@ -45,7 +45,7 @@ func to_var_name(label: String) -> String:
 # this is the main thing i don't like about the current system
 # we swap out all of the children of the level designer with the children of the template
 # we scooped out the LD's insides and replaced it with the template's insides
-# and then continue on like nothing happened
+# and then continue checked like nothing happened
 func scoop_children(target: Node, source: Node):
 	for child in target.get_children():
 		child.queue_free()

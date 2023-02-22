@@ -3,18 +3,18 @@
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
 [ext_resource path="res://classes/player/player.gd" type="Script" id=3]
-[ext_resource path="res://classes/player/fludd_nozzlefx.png" type="Texture" id=4]
+[ext_resource path="res://classes/player/fludd_nozzlefx.png" type="Texture2D" id=4]
 [ext_resource path="res://gui/hud/hud.tscn" type="PackedScene" id=5]
 [ext_resource path="res://classes/player/sfx/fludd/hover_loop.mp3" type="AudioStream" id=6]
 [ext_resource path="res://classes/player/sfx/fludd/hover.mp3" type="AudioStream" id=7]
-[ext_resource path="res://classes/player/mario_sheet.png" type="Texture" id=8]
+[ext_resource path="res://classes/player/mario_sheet.png" type="Texture2D" id=8]
 [ext_resource path="res://shaders/distance_field.tres" type="Material" id=9]
-[ext_resource path="res://classes/player/fludd_water.png" type="Texture" id=10]
+[ext_resource path="res://classes/player/fludd_water.png" type="Texture2D" id=10]
 [ext_resource path="res://classes/player/dust_material.tres" type="Material" id=11]
-[ext_resource path="res://classes/player/fludd_sheet.png" type="Texture" id=12]
+[ext_resource path="res://classes/player/fludd_sheet.png" type="Texture2D" id=12]
 [ext_resource path="res://classes/player/fludd_spray.tres" type="Material" id=13]
 [ext_resource path="res://classes/player/camera.gd" type="Script" id=14]
-[ext_resource path="res://classes/particles/dust.png" type="Texture" id=15]
+[ext_resource path="res://classes/particles/dust.png" type="Texture2D" id=15]
 [ext_resource path="res://classes/player/sfx/fludd/fludd_switch.wav" type="AudioStream" id=16]
 [ext_resource path="res://classes/player/sfx/pound/pound_spin.wav" type="AudioStream" id=17]
 [ext_resource path="res://classes/player/sfx/spin_air_1.wav" type="AudioStream" id=18]
@@ -161,137 +161,137 @@ region = Rect2( 24, 38, 24, 38 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 8 ) ],
+"sprite_frames": [ SubResource( 8 ) ],
 "loop": true,
 "name": "back",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 23 ) ],
+"sprite_frames": [ SubResource( 23 ) ],
 "loop": true,
 "name": "back_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 16 ) ],
+"sprite_frames": [ SubResource( 16 ) ],
 "loop": true,
 "name": "dive",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 24 ) ],
+"sprite_frames": [ SubResource( 24 ) ],
 "loop": true,
 "name": "dive_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 11 ) ],
+"sprite_frames": [ SubResource( 11 ) ],
 "loop": true,
 "name": "fall",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 27 ) ],
+"sprite_frames": [ SubResource( 27 ) ],
 "loop": true,
 "name": "fall_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 9 ) ],
+"sprite_frames": [ SubResource( 9 ) ],
 "loop": true,
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 26 ) ],
+"sprite_frames": [ SubResource( 26 ) ],
 "loop": true,
 "name": "flip_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ) ],
+"sprite_frames": [ SubResource( 7 ) ],
 "loop": true,
 "name": "front",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 28 ) ],
+"sprite_frames": [ SubResource( 28 ) ],
 "loop": true,
 "name": "front_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 45 ) ],
+"sprite_frames": [ SubResource( 45 ) ],
 "loop": true,
 "name": "hurt",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 46 ) ],
+"sprite_frames": [ SubResource( 46 ) ],
 "loop": true,
 "name": "hurt_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 17 ) ],
+"sprite_frames": [ SubResource( 17 ) ],
 "loop": true,
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 10 ) ],
+"sprite_frames": [ SubResource( 10 ) ],
 "loop": true,
 "name": "jump_double",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 29 ) ],
+"sprite_frames": [ SubResource( 29 ) ],
 "loop": true,
 "name": "jump_double_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 25 ) ],
+"sprite_frames": [ SubResource( 25 ) ],
 "loop": true,
 "name": "jump_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 13 ) ],
+"sprite_frames": [ SubResource( 13 ) ],
 "loop": true,
 "name": "pound_fall",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 34 ) ],
+"sprite_frames": [ SubResource( 34 ) ],
 "loop": true,
 "name": "pound_fall_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 57 ) ],
+"sprite_frames": [ SubResource( 57 ) ],
 "loop": true,
 "name": "pound_windup",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 58 ) ],
+"sprite_frames": [ SubResource( 58 ) ],
 "loop": true,
 "name": "pound_windup_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 12 ) ],
+"sprite_frames": [ SubResource( 12 ) ],
 "loop": true,
 "name": "shine",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"sprite_frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
 "loop": true,
 "name": "spin",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
+"sprite_frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
 "loop": true,
 "name": "spin_fludd",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 18 ), SubResource( 19 ) ],
+"sprite_frames": [ SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "swim",
 "speed": 4.0
 }, {
-"frames": [ SubResource( 30 ), SubResource( 31 ) ],
+"sprite_frames": [ SubResource( 30 ), SubResource( 31 ) ],
 "loop": true,
 "name": "swim_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 14 ), SubResource( 15 ) ],
+"sprite_frames": [ SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 32 ), SubResource( 33 ) ],
+"sprite_frames": [ SubResource( 32 ), SubResource( 33 ) ],
 "loop": true,
 "name": "walk_fludd",
 "speed": 10.0
@@ -315,22 +315,22 @@ region = Rect2( 112, 0, 28, 30 )
 
 [sub_resource type="SpriteFrames" id=36]
 animations = [ {
-"frames": [ SubResource( 35 ) ],
+"sprite_frames": [ SubResource( 35 ) ],
 "loop": true,
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 42 ) ],
+"sprite_frames": [ SubResource( 42 ) ],
 "loop": true,
 "name": "hover_front",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 37 ) ],
+"sprite_frames": [ SubResource( 37 ) ],
 "loop": true,
 "name": "rocket",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 38 ) ],
+"sprite_frames": [ SubResource( 38 ) ],
 "loop": true,
 "name": "turbo",
 "speed": 5.0
@@ -349,9 +349,9 @@ extents = Vector2( 6, 1 )
 extents = Vector2( 6, 0.999998 )
 
 [sub_resource type="Gradient" id=53]
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+colors = PackedColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=54]
+[sub_resource type="GradientTexture2D" id=54]
 gradient = SubResource( 53 )
 
 [sub_resource type="Curve" id=55]
@@ -361,7 +361,7 @@ _data = [ Vector2( 0, 0.495454 ), 0.0, 1.77478, 0, 0, Vector2( 0.5, 1 ), 0.49444
 width = 64
 curve = SubResource( 55 )
 
-[sub_resource type="ParticlesMaterial" id=44]
+[sub_resource type="ParticleProcessMaterial" id=44]
 flag_align_y = true
 flag_disable_z = true
 direction = Vector3( 0, 1, 0 )
@@ -391,13 +391,13 @@ region = Rect2( 32, 0, 16, 20 )
 
 [sub_resource type="SpriteFrames" id=51]
 animations = [ {
-"frames": [ SubResource( 48 ), SubResource( 49 ), SubResource( 50 ) ],
+"sprite_frames": [ SubResource( 48 ), SubResource( 49 ), SubResource( 50 ) ],
 "loop": true,
 "name": "default",
 "speed": 30.0
 } ]
 
-[sub_resource type="ParticlesMaterial" id=43]
+[sub_resource type="ParticleProcessMaterial" id=43]
 lifetime_randomness = 0.5
 emission_shape = 2
 emission_box_extents = Vector3( 4, 0, 0 )
@@ -412,7 +412,7 @@ anim_speed = 1.0
 [sub_resource type="RectangleShape2D" id=52]
 extents = Vector2( 6, 1 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 6
 collision_mask = 3
 script = ExtResource( 3 )
@@ -420,14 +420,14 @@ __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
 
-[node name="Character" type="AnimatedSprite" parent="."]
-frames = SubResource( 3 )
+[node name="Character" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource( 3 )
 animation = "walk"
 script = ExtResource( 1 )
 
-[node name="Fludd" type="AnimatedSprite" parent="Character"]
+[node name="Fludd" type="AnimatedSprite2D" parent="Character"]
 show_behind_parent = true
-frames = SubResource( 36 )
+sprite_frames = SubResource( 36 )
 animation = "hover"
 offset = Vector2( -2, -2 )
 
@@ -445,15 +445,15 @@ shape = SubResource( 4 )
 position = Vector2( 0, 1.5 )
 shape = SubResource( 5 )
 
-[node name="Camera" type="Camera2D" parent="."]
-pause_mode = 2
+[node name="Camera3D" type="Camera2D" parent="."]
+process_mode = 2
 process_mode = 0
-smoothing_enabled = true
+follow_smoothing_enabled = true
 script = ExtResource( 14 )
 
-[node name="HUD" parent="Camera" instance=ExtResource( 5 )]
+[node name="HUD" parent="Camera3D" instance=ExtResource( 5 )]
 layer = 2
-follow_viewport_enable = false
+follow_viewport_enabled = false
 
 [node name="Voice" type="AudioStreamPlayer" parent="."]
 volume_db = -5.0
@@ -497,14 +497,14 @@ monitorable = false
 position = Vector2( 0, 10 )
 shape = SubResource( 6 )
 
-[node name="SprayViewport" type="Viewport" parent="."]
+[node name="SprayViewport" type="SubViewport" parent="."]
 size = Vector2( 640, 360 )
 hdr = false
 usage = 0
 render_target_v_flip = true
 render_target_update_mode = 3
 
-[node name="SprayParticles" type="Particles2D" parent="SprayViewport"]
+[node name="SprayParticles" type="GPUParticles2D" parent="SprayViewport"]
 material = ExtResource( 9 )
 emitting = false
 amount = 50
@@ -514,14 +514,14 @@ local_coords = false
 process_material = SubResource( 44 )
 texture = ExtResource( 10 )
 
-[node name="SprayPlume" type="AnimatedSprite" parent="."]
+[node name="SprayPlume" type="AnimatedSprite2D" parent="."]
 visible = false
 show_behind_parent = true
 position = Vector2( -9, -1 )
-frames = SubResource( 51 )
+sprite_frames = SubResource( 51 )
 offset = Vector2( 0, 9 )
 
-[node name="SprayRenderTarget" type="Sprite" parent="."]
+[node name="SprayRenderTarget" type="Sprite2D" parent="."]
 material = ExtResource( 13 )
 z_index = -1
 script = ExtResource( 2 )
@@ -544,7 +544,7 @@ stream = ExtResource( 6 )
 volume_db = -10.0
 bus = "SFX"
 
-[node name="Dust" type="Particles2D" parent="."]
+[node name="Dust" type="GPUParticles2D" parent="."]
 material = ExtResource( 11 )
 position = Vector2( 0, 11.5 )
 z_index = -1

@@ -73,7 +73,7 @@
         <inherit name="ball" />
     </item>
 
-    <item id="1" name="Red Coin" description="Counts for 2 yellow coins. Collect them all to summon a Shine Sprite!" />
+    <item id="1" name="Red Coin" description="Counts for 2 yellow coins. Collect them all to summon a Shine Sprite2D!" />
 		<scene path="res://classes/pickup/coin/red/coin_red.tscn" />
 		<texture tag="Placed" path="res://classes/pickup/coin/red/red_coin0.png" />
         <inherit name="ball" />
@@ -85,12 +85,12 @@
         <inherit name="ball" />
     </item>
 
-    <item id="3" name="Silver Shine" description="Collect them all to summon a Shine Sprite!">
+    <item id="3" name="Silver Shine" description="Collect them all to summon a Shine Sprite2D!">
 		<texture tag="List" path="res://gui/hud/hud_silver_shine.png" />
         <inherit name="ball" />
     </item>
 
-    <item id="4" name="Shine Sprite" description="The level goal!">
+    <item id="4" name="Shine Sprite2D" description="The level goal!">
 		<scene path="res://classes/pickup/shine/shine.tscn" />
 		<texture tag="Placed" path="res://classes/pickup/shine/shine_placed.png" />
 		<texture tag="List" path="res://classes/pickup/shine/shine_placed.png" />
@@ -201,7 +201,7 @@
 		<texture tag="Placed" path="res://classes/decorative/butterfly/butterfly_placed.png" />
         <inherit name="ball" />
         <property label="Color" type="uint" interface="butterfly_color" description="The butterfly's color." />
-        <property label="Area" type="Vector2" default="Vector2(20, 10)" description="The area in which the butterfly is allowed to move." />
+        <property label="Area3D" type="Vector2" default="Vector2(20, 10)" description="The area in which the butterfly is allowed to move." />
         <property label="Speed" type="Vector2" default="Vector2(2, 3.25)" description="The speed at which the butterfly floats up/down and left/right." />
     </item>
 	

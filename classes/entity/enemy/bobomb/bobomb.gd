@@ -3,7 +3,7 @@ extends EntityEnemyWalk
 # Bobombs wander until a player enters their alert area.
 # This will begin their fuse, and they will pursue the player at a higher speed.
 # They will explode, dropping a coin once their fuse runs out.
-# When their fuse is lit, they do not lose focus on the player.
+# When their fuse is lit, they do not lose focus checked the player.
 # They can be struck to send them flying a short distance before exploding.
 
 # When two bombs play the buildup sound at once, the sound gets confusing.
@@ -13,7 +13,7 @@ extends EntityEnemyWalk
 # not, and making a global "in-use bomb sound" pool would require modifying
 # the singleton--which sounds like a pretty far-reaching change for a little
 # problem like this!
-# So for now, multiple buildup sounds is off the table.
+# So for now, multiple buildup sounds is unchecked the table.
 #const BUILDUP_SOUNDS = [
 #	preload("res://classes/entity/enemy/bobomb/explosion_buildup_1.wav"),
 #	preload("res://classes/entity/enemy/bobomb/explosion_buildup_2.wav"),
@@ -24,15 +24,15 @@ const BUILDUP_SOUND_START = 198
 
 var fuse_time = FUSE_DURATION
 
-onready var base = $Sprites/Base
-onready var fuse = $Sprites/Fuse
-onready var key = $Sprites/Key
-onready var sfx_fuse = $SFXFuse
-onready var sfx_build = $SFXBuildup
-onready var sfx_knock = $SFXKnock
+@onready var base = $Sprites/Base
+@onready var fuse = $Sprites/Fuse
+@onready var key = $Sprites/Key
+@onready var sfx_fuse = $SFXFuse
+@onready var sfx_build = $SFXBuildup
+@onready var sfx_knock = $SFXKnock
 
 func _ready_override():
-	._ready_override()
+	super._ready_override()
 	fuse = _preempt_node_ready(fuse, "Sprites/Fuse")
 	key = _preempt_node_ready(key, "Sprites/Key")
 	fuse.playing = !disabled
@@ -52,7 +52,7 @@ func _physics_step() -> void:
 	if fuse_time <= 0:
 		explode()
 	
-	._physics_step()
+	super._physics_step()
 
 
 func _update_sprites() -> void:
@@ -86,13 +86,13 @@ func _target_alert(_body) -> void:
 
 
 func set_disabled(val) -> void:
-	.set_disabled(val)
+	super.set_disabled(val)
 	fuse.playing = !disabled
 	key.playing = !disabled
 
 
 func _hurt_struck(body) -> void:
-	._hurt_struck(body)
+	super._hurt_struck(body)
 	base.animation = "struck"
 	fuse.visible = false
 	key.visible = false
@@ -117,7 +117,7 @@ func _struck_land():
 
 
 func explode():
-	var spawn = EXPLOSION.instance()
+	var spawn = EXPLOSION.instantiate()
 	spawn.position = position
 	get_parent().add_child(spawn)
 	enemy_die()

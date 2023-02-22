@@ -3,16 +3,16 @@ extends Control
 
 const RESET_SCENE_PATH = "res://scenes/levels/tutorial_1/tutorial_1_1.tscn"
 
-onready var total = $Total
-onready var total_ms = $TotalMS
-onready var split_ref = $SplitRect/Split
+@onready var total = $Total
+@onready var total_ms = $TotalMS
+@onready var split_ref = $SplitRect/Split
 
-var frames: int = 0
+var sprite_frames: int = 0
 var split_frames: int = 0
 var running = false
 
 #func _ready():
-#	total.margin_right = get_font("font").get_string_size("0:00.0000").x + 10
+#	total.offset_right = get_font("font").get_string_size("0:00.0000").x + 10
 
 
 func format_time(overall_seconds):
@@ -44,19 +44,19 @@ func format_time(overall_seconds):
 
 
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("reset") and get_tree().get_current_scene().get_filename().count("tutorial") and !get_tree().paused and Singleton.timer.visible:
-		Singleton.get_node("Timer").frames = 0
+	if Input.is_action_just_pressed("reset") and get_tree().get_current_scene().get_scene_file_path().count("tutorial") and !get_tree().paused and Singleton.timer.visible:
+		Singleton.get_node("Timer").sprite_frames = 0
 		Singleton.get_node("Timer").split_frames = 0
 		Singleton.get_node("Timer").running = true
 		Singleton.warp_location = Vector2(110, 153)
 		FlagServer.reset_flag_dict()
 		Singleton.warp_to(RESET_SCENE_PATH, null)
 	
-	rect_scale = Vector2.ONE * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
+
 	if !Singleton.meta_paused and running:
-		frames += 1
+		sprite_frames += 1
 		split_frames += 1
-		var txt = format_time(round(frames / 60.0 * 1000.0) / 1000.0)
+		var txt = format_time(round(sprite_frames / 60.0 * 1000.0) / 1000.0)
 		total.text = txt[0]
 		total_ms.text = txt[1]
 	

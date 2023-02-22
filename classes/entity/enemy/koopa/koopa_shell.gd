@@ -2,7 +2,7 @@ class_name KoopaShell
 extends EntityEnemy
 
 var speed = 5
-onready var kick_sfx = $Kick
+@onready var kick_sfx = $Kick
 
 const color_presets = [
 	[ # green
@@ -22,12 +22,12 @@ enum ShellColor {
 	RED,
 }
 
-export(ShellColor) var color = 0 setget set_color
+@export var color: ShellColor = 0 : set = set_color
 
 
 func set_color(new_color):
 	for i in range(3):
-		material.set_shader_param("color" + str(i), color_presets[new_color][i])
+		material.set_shader_parameter("color" + str(i), color_presets[new_color][i])
 	color = new_color
 
 
@@ -43,7 +43,7 @@ func _physics_step():
 		sprite.animation = "counterclockwise"
 	else:
 		sprite.animation = "clockwise"
-	._physics_step()
+	super._physics_step()
 
 
 # Stub the strike check so the player doesn't have to spin to hit the shell

@@ -1,5 +1,5 @@
 class_name InterSceneData
-extends Reference # Reference counted because where to consistently free an Object?
+extends RefCounted # RefCounted counted because where to consistently free an Object?
 
 var sprite_flip # Direction player faces after a warp
 var hp = 8

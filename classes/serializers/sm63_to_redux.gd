@@ -1,6 +1,6 @@
 class_name SM63ToRedux
 
-export(String, FILE) var tile_groupings
+@export var tile_groupings # (String, FILE)
 
 const REAL_EMPTY_TILE = ""
 const TILE_SIZE = Vector2(32, 32)
@@ -34,8 +34,8 @@ func convert_xml_to_readable():
 			var sum = group_id + tile_id
 			var char_1 = floor(sum / 75) + 49
 			var char_2 = sum - (char_1 - 49) * 75 + 49
-			# Convert to a PoolByteArray since then we can convert to ascii
-			var chars = PoolByteArray([char_1, char_2])
+			# Convert to a PackedByteArray since then we can convert to ascii
+			var chars = PackedByteArray([char_1, char_2])
 			var string = chars.get_string_from_ascii()
 			numeric_id_to_tile_id[sum] = string
 			
@@ -177,7 +177,7 @@ func deserialize_tiles(level_data):
 	
 	var result = []
 	for group in done_tiles.values():
-		# Get a normal map for the polygons to get generated on
+		# Get a normal map for the polygons to get generated checked
 		var map = tile_to_poly.create_2d_grid(tiles.size() + 1, tiles[0].size() + 1)
 		for x in range(tiles.size()):
 			for y in range(tiles[x].size()):
@@ -226,7 +226,7 @@ func deserialize_items(level_data):
 func deserialize(lvl_text):
 	# First seperate the level into several segments
 	var expression = RegEx.new()
-	expression.compile("(?<x>\\d+)x(?<y>\\d+)~(?<tiles>.+?)~(?<items>.+?)~(?<song>\\d+)~(?<bg>\\d+)~(?<name>.+)")
+	expression.compile("(?<x>\\d+)x(?<y>\\d+)~(?<tiles>.+?)~(?<items>.+?)~(?<song>\\d+)~(?<panel>\\d+)~(?<name>.+)")
 	var result = expression.search(lvl_text)
 	# If we don't have a result, that means *something* went wrong
 	if result:
@@ -240,7 +240,7 @@ func deserialize(lvl_text):
 			polygon_data = null,
 			items = null,
 			song = int(result.get_string("song")),
-			bg = int(result.get_string("bg")),
+			panel = int(result.get_string("panel")),
 			name = result.get_string("name")
 		}
 		level_data.polygon_data = deserialize_tiles(level_data)

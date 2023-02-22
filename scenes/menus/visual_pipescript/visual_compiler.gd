@@ -1,9 +1,9 @@
 extends Node
 
-onready var pipescript = $".."
-onready var graph = $"/root/Main/Graph"
+@onready var pipescript = $".."
+@onready var graph = $"/root/Main/Graph"
 
-onready var test = $"/root/Main/CanvasLayer/Theme/Titlebar/Run"
+@onready var test = $"/root/Main/CanvasLayer/Theme/Titlebar/Run"
 
 var source_code = ""
 var error_flagged = false
@@ -27,7 +27,7 @@ func compile_to_source(start_piece, prefix = ""):
 	
 	# Queue up all pieces we should compile
 	var queue = [start_piece]
-	while !queue.empty():
+	while !queue.is_empty():
 		var piece = queue.pop_front()
 		
 		# Make sure to cancel compilation if we reached an error
@@ -134,7 +134,7 @@ func compile_to_source(start_piece, prefix = ""):
 						add_line("gd-call-set %s %s duplicate.S" % [dupe_name, piece.get_input_text(0)], prefix)
 						add_line("gd-call-set %s %s get_parent.S" % [parent_name, piece.get_input_text(0)], prefix)
 						add_line("gd-call %s add_child.S %s" % [parent_name, dupe_name], prefix)
-					"remove":
+					"remove_at":
 						add_line("gd-call %s queue_free.S" % piece.get_input_text(0), prefix)
 					"parent":
 						add_line("gd-call-set %s %s get_parent.S" % [piece.get_input_text(1), piece.get_input_text(0)], prefix)
@@ -163,7 +163,7 @@ func compile_to_source(start_piece, prefix = ""):
 							if editor_idx < 2:
 								continue
 							var editor = piece.line_edits[editor_idx]
-							if editor.text.empty():
+							if editor.text.is_empty():
 								printerr("%s is not filled in!" % name)
 							args.append(editor.text)
 						add_line(
@@ -180,7 +180,7 @@ func compile_to_source(start_piece, prefix = ""):
 							if editor_idx < 3:
 								continue
 							var editor = piece.line_edits[editor_idx]
-							if editor.text.empty():
+							if editor.text.is_empty():
 								printerr("%s is not filled in!" % name)
 							args.append(editor.text)
 						add_line(

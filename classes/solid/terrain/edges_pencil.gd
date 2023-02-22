@@ -1,9 +1,9 @@
-tool
+@tool
 extends Node2D
 
-onready var root = $".."
+@onready var root = $".."
 
-export(Array) var segment_queue
+@export var segment_queue: Array
 
 
 func polygon_cut_box(box: Array, uvs: Array, box_size: int):
@@ -21,7 +21,7 @@ func polygon_cut_box(box: Array, uvs: Array, box_size: int):
 			var e_next_vert: Vector2 = box[e_next_ind]
 			
 			# Get the intersection point
-			var intersect = Geometry.segment_intersects_segment_2d(p_vert, p_next_vert, e_vert, e_next_vert)
+			var intersect = Geometry2D.segment_intersects_segment(p_vert, p_next_vert, e_vert, e_next_vert)
 			if intersect:
 				if e_next_ind != 0:
 					# If this is the egde which loops arround, there is a special case
@@ -55,12 +55,12 @@ func add_edge_segment(is_left, group):
 	var normal_sign = -1 if is_left else 1
 	
 	# The uv for our box
-	var uvs = PoolVector2Array([
+	var uvs = PackedVector2Array([
 		Vector2(1, 0), Vector2(0, 0),
 		Vector2(0, 1), Vector2(1, 1)
 	])
 	# Calculate the corners for the edge polygon
-	var poly = PoolVector2Array([
+	var poly = PackedVector2Array([
 		corner,
 		corner + group.direction * 32 * normal_sign,
 		corner + group.direction * 32 * normal_sign - group.normal * 32,
@@ -72,7 +72,7 @@ func add_edge_segment(is_left, group):
 	var inside_counter = 0
 	var verts_inside = []
 	for vert in poly:
-		var is_inside = Geometry.is_point_in_polygon(vert, root.polygon)
+		var is_inside = Geometry2D.is_point_in_polygon(vert, root.polygon)
 		if is_inside:
 			verts_inside.append(vert)
 			inside_counter += 1
@@ -80,7 +80,7 @@ func add_edge_segment(is_left, group):
 	var base_color = Color(1, 1, 1)
 	if root.shallow:
 		base_color = root.shallow_color
-	var colors = PoolColorArray([base_color, base_color, base_color, base_color])
+	var colors = PackedColorArray([base_color, base_color, base_color, base_color])
 	
 	# Draw the shade
 	if inside_counter > 0:
